@@ -238,19 +238,36 @@ ggplot(em_df_Emphatic, aes(x = speaker_group, y = emmean, color = speaker_group)
 
 
 
-ggplot(em_df_Emphatic, aes(x = speaker_group, y = emmean, fill = speaker_group)) +
+ggplot(em_df_Emphatic, aes(x = factor(speaker_group, levels = c("Naive", "L2", "Native")), y = emmean, fill = speaker_group)) +
   geom_col() +
   geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.2) +
-  facet_wrap(~ EmotionCode) +
+  facet_wrap(~ EmotionCode, labeller = labeller(EmotionCode = custom_labels_Emphatic)) +
   theme_bw() +
   labs(title = "Emphatic Rating Emmeans")
 
-ggplot(em_df_Confident, aes(x = speaker_group, y = emmean, fill = speaker_group)) +
+ggplot(em_df_Confident, aes(x = factor(speaker_group,levels = c("Naive", "L2", "Native")), y = emmean, fill = speaker_group)) +
   geom_col() +
   geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.2) +
-  facet_wrap(~ EmotionCode) +
+  facet_wrap(~ EmotionCode, labeller = labeller(EmotionCode = custom_labels_Confident)) +
   theme_bw() +
   labs(title = "Confidence Rating Emmeans")
+
+
+custom_labels_Emphatic <- c(
+  "Plain_Statement" = "Plain_Statement(-)",
+  "Command" = "Command(+)",
+  "Emphatic_Question" = "Emphatic_Question(+)",
+  "Plain_Question" = "Plain_Question(-)"
+)
+
+
+custom_labels_Confident <- c(
+  "Plain_Statement" = "Plain_Statement(+)",
+  "Command" = "Command(+)",
+  "Emphatic_Question" = "Emphatic_Question(-)",
+  "Plain_Question" = "Plain_Question(-)"
+)
+
 
 ggplot(em_df_Emphatic, aes(x = EmotionCode, y = emmean, fill = EmotionCode)) +
   geom_col() +
