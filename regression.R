@@ -238,14 +238,22 @@ ggplot(em_df_Emphatic, aes(x = speaker_group, y = emmean, color = speaker_group)
 
 
 
-ggplot(em_df_Emphatic, aes(x = factor(speaker_group, levels = c("Naive", "L2", "Native")), y = emmean, fill = speaker_group)) +
-  geom_col() +
+em_df_Emphatic$speaker_group <- factor(em_df_Emphatic$speaker_group,
+                                       levels = c("Naive", "L2", "Native"))
+
+
+em_df_Confident$speaker_group <- factor(em_df_Confident$speaker_group,
+                                       levels = c("Naive", "L2", "Native"))
+
+
+ggplot(em_df_Emphatic, aes(x = speaker_group, y = emmean, fill = speaker_group)) +
+  geom_col(mapping = ) +
   geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.2) +
   facet_wrap(~ EmotionCode, labeller = labeller(EmotionCode = custom_labels_Emphatic)) +
   theme_bw() +
   labs(title = "Emphatic Rating Emmeans")
 
-ggplot(em_df_Confident, aes(x = factor(speaker_group,levels = c("Naive", "L2", "Native")), y = emmean, fill = speaker_group)) +
+ggplot(em_df_Confident, aes(x = speaker_group, y = emmean, fill = speaker_group)) +
   geom_col() +
   geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.2) +
   facet_wrap(~ EmotionCode, labeller = labeller(EmotionCode = custom_labels_Confident)) +
